@@ -1,0 +1,106 @@
+# Catalogue item property
+CatalogueProperty:
+  columns:
+    name: string(255)
+    property_type:
+      type: enum
+      values: [n, m, e, s, l]
+    property_value: string
+    property_default: string(255)
+    property_set_id: integer
+
+CataloguePropertySet:
+  columns:
+    name: string(255)
+  relations:
+    Properties:
+      class: CatalogueProperty
+      type: many
+      local: id
+      foreign: property_set_id
+      onDelete: CASCADE
+    Categories:
+      class: CatalogueCategory
+      refClass: CatalogueCategoryPropertySet
+      local: property_set_id
+      foreign: category_id
+
+CatalogueItem:
+  columns:
+    name: string(255)
+    summary: string
+    image: string(255)
+    description: string
+    category_id: integer
+  relations:
+    Properties:
+      class: CatalogueItemPropertyValue
+      local: id
+      foreign: item_id
+      type: many
+      onDelete: CASCADE
+
+CatalogueCategory:
+  actAs:
+    NestedSet:
+      hasManyRoots: true
+      rootColumnName: root_id
+    Sluggable:
+      fields: [name]
+      unique: true
+      canUpdate: false
+      builder: [doctrineUtils, urlize]
+      uniqueBy: [name, parent_id]
+  columns:
+    name: string(255)
+    description: string
+    parent_id: integer
+  relations:
+    Items:
+      class: CatalogueItem
+      type: many
+      foreign: category_id
+      local: id
+    PropertySets:
+      class: CataloguePropertySet
+      refClass: CatalogueCategoryPropertySet
+      local: category_id
+      foreign: property_set_id
+
+CatalogueCategoryPropertySet:
+  columns:
+    category_id:
+      type: integer
+      primary: true
+    property_set_id:
+      type: integer
+      primary: true
+  relations:
+    CatalogueCategory:
+      local: category_id
+      foreign: id
+      onDelete: CASCADE
+      onUpdate: CASCADE
+    CataloguePropertySet:
+      local: property_set_id
+      foreign: id
+      onDelete: CASCADE
+      onUpdate: CASCADE
+
+CatalogueItemPropertyValue:
+  columns:
+    item_id: integer
+    property_id: integer
+    value: string(255)
+  relations:
+    Item:
+      class: CatalogueItem
+      local: item_id
+      foreign: id
+      type: one
+    Property:
+      class: CatalogueProperty
+      local: property_id
+      foreign: id
+      type: one
+
