@@ -1,0 +1,8 @@
+catalogue_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                CatalogueCategory
+    module:               ikCatalogueCategoryAdmin
+    prefix_path:          /ikCatalogueCategoryAdmin
+    column:               id
+    with_wildcard_routes: true
