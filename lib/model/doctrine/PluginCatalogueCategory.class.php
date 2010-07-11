@@ -12,5 +12,7 @@
  */
 abstract class PluginCatalogueCategory extends BaseCatalogueCategory
 {
-
+  public function getIndentedName(){
+    return str_repeat('-', $this->getLevel()).' '.$this['name'];
+  }
 }

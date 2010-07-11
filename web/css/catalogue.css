@@ -1,0 +1,12 @@
+#sf_admin_content #catalogue-categories {
+  float: left;
+  border: 1px solid #000000;
+  background: #ffffff;
+  margin-right: 10px;
+}
+
+
+#sf_admin_content #catalogue-footer {
+  padding-top: 10px;
+  clear: both;
+}

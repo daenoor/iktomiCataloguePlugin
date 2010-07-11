@@ -12,4 +12,5 @@ require_once dirname(__FILE__).'/ikCatalogueCategoryAdminGeneratorHelper.class.p
  */
 abstract class BaseikCatalogueCategoryAdminActions extends autoIkCatalogueCategoryAdminActions
 {
+
 }
