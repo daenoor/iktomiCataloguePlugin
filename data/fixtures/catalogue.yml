@@ -1,0 +1,120 @@
+CatalogueItem:
+  CatalogueItem_1:
+    name: 'Samsung LE-40 B530 P7W'
+    summary: 'Very good LCD TV'
+    image: ''
+    description: 'Very good LCD TV'
+    CatalogueCategory: CatalogueCategory_10
+  CatalogueItem_2:
+    name: 'Samsung LE-41 B530 P7W'
+    summary: 'One more good tv set'
+    image: ''
+    description: 'One more good tv set'
+    CatalogueCategory: CatalogueCategory_10
+  CatalogueItem_3:
+    name: 'Samsung LE-42 B530 P7W'
+    summary: 'So many good tvs'
+    image: ''
+    description: 'So many good tvs'
+    CatalogueCategory: CatalogueCategory_10
+CatalogueCategory:
+  CatalogueCategory_1:
+    name: Электроника
+    description: Электроника
+    parent_id: null
+    root_id: '1'
+    lft: '1'
+    rgt: '14'
+    level: '0'
+    slug: elektronika
+  CatalogueCategory_2:
+    name: 'Бытовая техника'
+    description: ''
+    parent_id: null
+    root_id: '2'
+    lft: '1'
+    rgt: '8'
+    level: '0'
+    slug: bytovaja-tehnika
+  CatalogueCategory_3:
+    name: Телевизоры
+    description: ''
+    parent_id: '1'
+    root_id: '1'
+    lft: '2'
+    rgt: '9'
+    level: '1'
+    slug: televizory
+  CatalogueCategory_4:
+    name: Видео
+    description: ''
+    parent_id: '1'
+    root_id: '1'
+    lft: '10'
+    rgt: '11'
+    level: '1'
+    slug: video
+  CatalogueCategory_5:
+    name: Аудио
+    description: ''
+    parent_id: '1'
+    root_id: '1'
+    lft: '12'
+    rgt: '13'
+    level: '1'
+    slug: audio
+  CatalogueCategory_6:
+    name: 'Стиральные машины'
+    description: ''
+    parent_id: '2'
+    root_id: '2'
+    lft: '2'
+    rgt: '3'
+    level: '1'
+    slug: stiraljnye-mashiny
+  CatalogueCategory_7:
+    name: Плиты
+    description: ''
+    parent_id: '2'
+    root_id: '2'
+    lft: '4'
+    rgt: '5'
+    level: '1'
+    slug: plity
+  CatalogueCategory_8:
+    name: Холодильники
+    description: ''
+    parent_id: '2'
+    root_id: '2'
+    lft: '6'
+    rgt: '7'
+    level: '1'
+    slug: holodiljniki
+  CatalogueCategory_9:
+    name: Плазменные
+    description: ''
+    parent_id: '3'
+    root_id: '1'
+    lft: '3'
+    rgt: '4'
+    level: '2'
+    slug: plazmennye
+  CatalogueCategory_10:
+    name: LCD
+    description: ''
+    parent_id: '3'
+    root_id: '1'
+    lft: '5'
+    rgt: '6'
+    level: '2'
+    slug: lcd
+  CatalogueCategory_11:
+    name: Кинескопные
+    description: ''
+    parent_id: '3'
+    root_id: '1'
+    lft: '7'
+    rgt: '8'
+    level: '2'
+    slug: kineskopnye
+    

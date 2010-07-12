@@ -1,2 +1,2 @@
 all:
-  enabled_modules: [ikCatalogueCategoryAdmin]
+  enabled_modules: [ikCatalogueCategoryAdmin, ikCatalogueItemAdmin]

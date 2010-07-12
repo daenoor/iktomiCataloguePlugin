@@ -6,3 +6,12 @@ catalogue_category:
     prefix_path:          /ikCatalogueCategoryAdmin
     column:               id
     with_wildcard_routes: true
+
+catalogue_item:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                CatalogueItem
+    module:               ikCatalogueItemAdmin
+    prefix_path:          /ikCatalogueItemAdmin
+    column:               id
+    with_wildcard_routes: true    
