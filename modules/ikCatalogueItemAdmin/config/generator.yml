@@ -14,8 +14,16 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:    ~
-      filter:  ~
+      list:
+        title: Test Catalogue
+        display: [_preview, =name]
+        object_actions:
+          _edit: ~
+          _delete: ~
+          editItemProperties: { label: Редактировать свойства }
+          
+      filter:
+        class: false
       form:    ~
       edit:    ~
       new:     ~

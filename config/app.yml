@@ -1,0 +1,4 @@
+all:
+  catalogue:
+    item_image_max_width: 500
+    item_image_max_height: 500    

@@ -17,20 +17,32 @@ class PluginCatalogueCategoryTable extends Doctrine_Table
     return Doctrine_Core::getTable('PluginCatalogueCategory');
   }
 
-  public function getFullTree()
+  /**
+   * Returns tree with hierarchy
+   *
+   * @return Doctrine_Collection
+   */
+  public function getTreeHierarchy()
   {
-    /** @var Doctrine_Tree $treeObject  */
+    /** @var Doctrine_Tree_NestedSet $treeObject  */
     $treeObject = $this->getTree();
     $rootColumnName = $treeObject->getAttribute('rootColumnName');
 
-    $rootIds = array( );
+    $rootIds = array();
     $roots = $treeObject->fetchRoots();
-    foreach ($roots as $root)
+    if (count($roots))
     {
-      $rootIds[] = $root->$rootColumnName;
-    }
-    $tree = $treeObject->fetchTree(array( 'root_id' => $rootIds ));
+      foreach ($roots as $root)
+      {
+        $rootIds[] = $root->$rootColumnName;
+      }
+      $tree = $treeObject->fetchTree(array('root_id' => $rootIds));
 
-    return $tree->toHierarchy();
+      return $tree->toHierarchy();
+    }
+    else
+    {
+      return null;
+    }
   }
 }

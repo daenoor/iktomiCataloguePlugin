@@ -1,12 +1,16 @@
-#sf_admin_content #catalogue-categories {
-  float: left;
-  border: 1px solid #000000;
-  background: #ffffff;
-  margin-right: 10px;
+#sf_admin_container ul li.sf_admin_action_edititemproperties a
+{
+  background: url(../images/edit.png) no-repeat 0 0;
 }
 
+#sf_admin_container ul.sf_admin_td_actions {
+  width: 186px;
+}
 
-#sf_admin_content #catalogue-footer {
-  padding-top: 10px;
-  clear: both;
+#sf_admin_container ul.sf_admin_td_actions li a{
+  padding-left: 14px;
+}
+
+#sf_admin_container #categories-panel {
+  float: left;
 }

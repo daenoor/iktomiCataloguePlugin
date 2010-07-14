@@ -1,0 +1,2 @@
+default:
+  stylesheets: [main, /iktomiCataloguePlugin/css/catalogue.css]

@@ -26,6 +26,11 @@ CataloguePropertySet:
       foreign: category_id
 
 CatalogueItem:
+  actAs:
+    Thumbnailable:
+      max_width: 100
+      max_height: 100
+      path: thumb
   columns:
     name: string(255)
     summary: string
