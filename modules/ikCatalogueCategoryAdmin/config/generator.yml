@@ -14,13 +14,8 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list:
-        title: Каталог
-        table_method: getFullTree
-        #max_per_page: 9999
-      filter:
-        #display: [name]
-        class: false
+      list:    ~
+      filter:  ~
       form:    ~
       edit:    ~
       new:     ~

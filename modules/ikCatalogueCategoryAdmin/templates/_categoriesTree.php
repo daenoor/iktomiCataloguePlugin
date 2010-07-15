@@ -4,7 +4,7 @@ function renderTree($tree)
 {
   foreach ($tree as $node)
   {
-    echo '<li id="node-' . $node->getId() . '"><span>' . $node->getName() . '</span>';
+    echo '<li id="node-' . $node->getId() . '" class="categories-tree-node"><span>' . $node->getName() . '</span>';
     if (count($node->__children))
     {
       echo '<ul>';

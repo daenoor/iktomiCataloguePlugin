@@ -11,6 +11,43 @@
   padding-left: 14px;
 }
 
+/* Categories tree */
 #sf_admin_container #categories-panel {
   float: left;
+  width: 200px;
+}
+
+#sf_admin_container ul#categories-tree{
+  list-style: none;
+  /*margin: 10px;*/
+  padding: 0;
+  background: white;
+}
+
+#sf_admin_container ul#categories-tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#sf_admin_container ul#categories-tree li {
+  list-style: none;
+  margin: 0;
+  line-height: 20px;
+  color: #336699;
+  font-weight: bold;
+  cursor: default;
+}
+
+#sf_admin_container ul#categories-tree ul li {
+  padding-left: 12px;
+}
+
+/* Default branch state is collapsed? */
+#sf_admin_container li.categories-tree-branch.collapsed ul {
+  display: none;
+}
+
+#sf_admin_container span.categories-tree-expander {
+  cursor: pointer;
 }
