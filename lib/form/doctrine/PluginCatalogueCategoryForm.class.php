@@ -19,16 +19,23 @@ abstract class PluginCatalogueCategoryForm extends BaseCatalogueCategoryForm
     $this->widgetSchema['parent_id'] = new sfWidgetFormDoctrineChoice(array(
       'model' => 'CatalogueCategory',
       'add_empty' => '~ (Объект на верхнем уровне)',
-      'order_by' => array( 'root_id, lft', '' ),
+      'order_by' => array('root_id, lft', ''),
       'method' => 'getIndentedName'
     ));
     $this->validatorSchema['parent_id'] = new sfValidatorDoctrineChoice(array(
       'required' => false,
       'model' => 'CatalogueCategory'
     ));
+    $this->widgetSchema['property_sets_list'] = new sfWidgetFormDoctrineChoice(array(
+      'model' => 'CataloguePropertySet',
+      'multiple' => true,
+      'expanded' => true
+    ));
     $this->setDefault('parent_id', $this->object->getParentId());
     $this->widgetSchema->setLabel('parent_id', 'Child of');
-    unset($this['root_id'], $this['lft'], $this['rgt'], $this['level'], $this['property_sets_list']);
+    //unset($this['root_id'], $this['lft'], $this['rgt'], $this['level'], $this['property_sets_list']);
+
+    unset($this['root_id'], $this['lft'], $this['rgt'], $this['level']);
     $this->widgetSchema->moveField('slug', sfWidgetFormSchema::AFTER, 'name');
   }
 

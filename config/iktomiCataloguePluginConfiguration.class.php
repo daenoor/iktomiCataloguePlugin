@@ -36,6 +36,8 @@ class iktomiCataloguePluginConfiguration extends sfPluginConfiguration
     if ($this->isModuleEnabled('ikCatalogueItemAdmin'))
     {
       $this->enableModule('ikCatalogueCategoryAdmin');
+      $this->enableModule('ikCataloguePropertyAdmin');
+      $this->enableModule('ikCataloguePropertySetAdmin');
     }
     sfConfig::set('sf_enabled_modules', $this->enabledModules);
   }

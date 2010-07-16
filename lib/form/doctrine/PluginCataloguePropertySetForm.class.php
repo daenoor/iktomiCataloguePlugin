@@ -10,4 +10,20 @@
  */
 abstract class PluginCataloguePropertySetForm extends BaseCataloguePropertySetForm
 {
+  public function setup()
+  {
+    parent::setup();
+
+    $this->widgetSchema['properties_list'] = new sfWidgetFormDoctrineChoice(array(
+      'model' => 'CatalogueProperty',
+      'multiple' => true,
+      'expanded' => true
+    ));
+
+    $this->validatorSchema['properties_list'] = new sfValidatorDoctrineChoice(array(
+      'required' => false,
+      'model' => 'CatalogueProperty',
+      'multiple' => true
+    ));
+  }
 }

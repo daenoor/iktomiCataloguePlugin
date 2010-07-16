@@ -10,4 +10,14 @@
  */
 abstract class PluginCataloguePropertyForm extends BaseCataloguePropertyForm
 {
+  public function setup(){
+    parent::setup();
+
+    $this->widgetSchema['property_type'] = new sfWidgetFormChoice(array(
+      'choices' => array(
+        'n' => 'Число', 'm' => 'Измеряемое', 'e' => 'Список',
+        's' => 'Строка', 'l' => 'Логическое'
+      )  
+    ));
+  }
 }

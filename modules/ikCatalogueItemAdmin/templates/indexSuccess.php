@@ -44,5 +44,9 @@
       node.hasClass('collapsed')?node.removeClass('collapsed').addClass('expanded'):
             node.removeClass('expanded').addClass('collapsed');
     })
+    $('span.categories-node-tree-label').click(function(){
+      $('li.categories-tree-node.selected').removeClass('selected');
+      $(this).parent().addClass('selected');
+    })
   });
 </script>
