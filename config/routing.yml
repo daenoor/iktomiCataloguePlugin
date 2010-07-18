@@ -14,4 +14,22 @@ catalogue_item:
     module:               ikCatalogueItemAdmin
     prefix_path:          /ikCatalogueItemAdmin
     column:               id
-    with_wildcard_routes: true    
+    with_wildcard_routes: true
+
+catalogue_property:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                CatalogueProperty
+    module:               ikCataloguePropertyAdmin
+    prefix_path:          /ikCataloguePropertyAdmin
+    column:               id
+    with_wildcard_routes: true
+
+catalogue_property_set:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                CataloguePropertySet
+    module:               ikCataloguePropertySetAdmin
+    prefix_path:          /ikCataloguePropertySetAdmin
+    column:               id
+    with_wildcard_routes: true
