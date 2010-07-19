@@ -1,11 +1,11 @@
 <?php
 
-require_once dirname(__FILE__).'/ikCatalogueItemAdminGeneratorConfiguration.class.php';
-require_once dirname(__FILE__).'/ikCatalogueItemAdminGeneratorHelper.class.php';
+require_once dirname(__FILE__) . '/ikCatalogueItemAdminGeneratorConfiguration.class.php';
+require_once dirname(__FILE__) . '/ikCatalogueItemAdminGeneratorHelper.class.php';
 
 /**
  * Base actions for the iktomiCataloguePlugin ikCatalogueItemAdmin module.
- * 
+ *
  * @package     iktomiCataloguePlugin
  * @subpackage  ikCatalogueItemAdmin
  * @author      Your name here
@@ -13,10 +13,11 @@ require_once dirname(__FILE__).'/ikCatalogueItemAdminGeneratorHelper.class.php';
  */
 abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminActions
 {
+  protected $category;
+
   public function executeIndex(sfWebRequest $request)
   {
-    $category = $request->getParameter('category', '');
-    var_dump($category);
+    $this->category = $request->getParameter('category', '');
     // auto generated index
     // sorting
     if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
@@ -32,5 +33,39 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
 
     $this->pager = $this->getPager();
     $this->sort = $this->getSort();
+    if ($request->isXmlHttpRequest()){
+      return $this->renderPartial('ikCatalogueItemAdmin/list', array('pager'=>$this->pager, 'sort'=>$this->sort));
+    } else {
+      return sfView::SUCCESS;
+    }
+  }
+
+  protected function buildQuery()
+  {
+    $tableMethod = $this->configuration->getTableMethod();
+    $query = Doctrine::getTable('CatalogueItem')->createQuery('a');
+
+    if ($tableMethod)
+    {
+      $query = Doctrine::getTable('CatalogueItem')->$tableMethod($query);
+    }
+
+    $this->addSortQuery($query);
+    $this->addCategoryQuery($query);
+
+    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_query'), $query);
+    $query = $event->getReturnValue();
+
+    return $query;
+  }
+
+  protected function addCategoryQuery(Doctrine_Query $query)
+  {
+    if (!$this->category)
+    {
+      return;
+    }
+
+    $query->addWhere('category_id = ?', $this->category);
   }
 }
