@@ -33,18 +33,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    // marking branches
-    $('li.categories-tree-node ul').parent('li').addClass('categories-tree-branch');
-    // initial branch state is collapsed
-    $('li.categories-tree-branch').addClass('collapsed').prepend('<span class="categories-tree-expander">+</span>')
-
-    $('span.categories-tree-expander').click(function(){
-      var node = $(this).parent();
-      node.children('ul').slideToggle('fast');
-      node.hasClass('collapsed')?node.removeClass('collapsed').addClass('expanded'):
-            node.removeClass('expanded').addClass('collapsed');
-    })
-    $('span.categories-node-tree-label').click(function(){
+    $('span.categories-tree-node-label').click(function(){
       $('li.categories-tree-node.selected').removeClass('selected');
       $(this).parent().addClass('selected');
     })

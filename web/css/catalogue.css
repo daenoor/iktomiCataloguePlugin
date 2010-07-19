@@ -51,3 +51,7 @@
 #sf_admin_container span.categories-tree-expander {
   cursor: pointer;
 }
+
+#sf_admin_container li.categories-tree-node.selected{
+  background: #e0e0e0;
+}

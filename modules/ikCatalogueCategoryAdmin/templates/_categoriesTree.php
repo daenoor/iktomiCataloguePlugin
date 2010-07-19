@@ -18,6 +18,7 @@ function renderTree($tree)
 <div id="categories-panel">
   <?php if(!empty($tree)): ?>
     <ul id="categories-tree">
+      <li class="categories-tree-node" id="node-all-categories"><span class="categories-tree-node-label">Все категории</<span></li>
       <?php renderTree($tree) ?>
     </ul>
   <?php endif ?>

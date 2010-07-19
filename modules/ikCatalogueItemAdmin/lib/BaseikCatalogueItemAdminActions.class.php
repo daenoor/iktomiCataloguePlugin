@@ -13,4 +13,24 @@ require_once dirname(__FILE__).'/ikCatalogueItemAdminGeneratorHelper.class.php';
  */
 abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminActions
 {
+  public function executeIndex(sfWebRequest $request)
+  {
+    $category = $request->getParameter('category', '');
+    var_dump($category);
+    // auto generated index
+    // sorting
+    if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
+    {
+      $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
+    }
+
+    // pager
+    if ($request->getParameter('page'))
+    {
+      $this->setPage($request->getParameter('page'));
+    }
+
+    $this->pager = $this->getPager();
+    $this->sort = $this->getSort();
+  }
 }
