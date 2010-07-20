@@ -18,7 +18,12 @@
   <div id="sf_admin_content">
     <?php include_component('ikCatalogueCategoryAdmin', 'categoriesTree') ?>
     <form action="<?php echo url_for('catalogue_item_collection', array('action' => 'batch')) ?>" method="post">
-    <?php include_partial('ikCatalogueItemAdmin/list', array('pager' => $pager, 'sort' => $sort, 'helper' => $helper)) ?>
+    <div id="catalogue-items-list">
+      <?php include_partial('ikCatalogueItemAdmin/list', array(
+        'pager' => $pager, 'sort' => $sort,
+        'helper' => $helper, 'category'=>$categoryId
+      )) ?>
+    </div>
     <ul class="sf_admin_actions">
       <?php include_partial('ikCatalogueItemAdmin/list_batch_actions', array('helper' => $helper)) ?>
       <?php include_partial('ikCatalogueItemAdmin/list_actions', array('helper' => $helper)) ?>
@@ -36,6 +41,14 @@
     $('span.categories-tree-node-label').click(function(){
       $('li.categories-tree-node.selected').removeClass('selected');
       $(this).parent().addClass('selected');
+      var categoryId = $(this).parent().attr('id').substring(5);
+      $('#catalogue-items-list').load('/admin.php/ikCatalogueItemAdmin?category='+categoryId+' .sf_admin_list');
     })
+
+    $('.sf_admin_pagination a').live('click', (function(e){
+      e.preventDefault();
+      var pagerLink = $(this).attr('href')<?php echo $categoryId?"+'&category="+$categoryId+"'":'' ?>;  
+      $('#catalogue-items-list').load(pagerLink+' .sf_admin_list');
+    }));
   });
 </script>

@@ -45,4 +45,20 @@ class PluginCatalogueCategoryTable extends Doctrine_Table
       return null;
     }
   }
+
+  public function getListWithDescendants($categoryId)
+  {
+    $categoryIds = array($categoryId);
+    $category = $this->findOneById($categoryId);
+    $descendants = $category->getNode()->getDescendants();
+    if ($descendants)
+    {
+      foreach ($descendants as $descendant)
+      {
+        $categoryIds[] = $descendant['id'];
+      }
+    }
+
+    return $categoryIds;
+  }
 }

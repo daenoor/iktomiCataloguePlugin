@@ -17,6 +17,7 @@ generator:
       list:
         title: Test Catalogue
         display: [_preview, =name]
+        max_per_page: 2
       filter:
         class: false
       form:    ~

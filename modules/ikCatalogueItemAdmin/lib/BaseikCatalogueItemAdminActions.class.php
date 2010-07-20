@@ -13,12 +13,13 @@ require_once dirname(__FILE__) . '/ikCatalogueItemAdminGeneratorHelper.class.php
  */
 abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminActions
 {
-  protected $category;
+  protected $categories;
 
   public function executeIndex(sfWebRequest $request)
   {
-    $this->category = $request->getParameter('category', '');
-    // auto generated index
+    $this->categoryId = $request->getParameter('category', '');
+    $this->categories = $this->categoryId?Doctrine::getTable('CatalogueCategory')->getListWithDescendants($this->categoryId):'';
+
     // sorting
     if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
     {
@@ -33,11 +34,12 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
 
     $this->pager = $this->getPager();
     $this->sort = $this->getSort();
-    if ($request->isXmlHttpRequest()){
-      return $this->renderPartial('ikCatalogueItemAdmin/list', array('pager'=>$this->pager, 'sort'=>$this->sort));
+/*    if ($request->isXmlHttpRequest()){
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+      return $this->renderPartial('ikCatalogueItemAdmin/list', array('pager'=>$this->pager, 'sort'=>$this->sort, 'helper'=>$this->helper));
     } else {
       return sfView::SUCCESS;
-    }
+    }*/
   }
 
   protected function buildQuery()
@@ -61,11 +63,11 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
 
   protected function addCategoryQuery(Doctrine_Query $query)
   {
-    if (!$this->category)
+    if (!$this->categories)
     {
       return;
     }
 
-    $query->addWhere('category_id = ?', $this->category);
+    $query->andWhereIn('category_id', $this->categories);
   }
 }
