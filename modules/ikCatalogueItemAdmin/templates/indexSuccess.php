@@ -4,6 +4,7 @@
 <?php use_stylesheet('/iktomiCataloguePlugin/css/catalogue.css') ?>
 <?php use_javascript('http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js') ?>
 <?php use_javascript('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js') ?>
+<?php use_javascript('/iktomiCataloguePlugin/js/catalogue.js') ?>
 
 <div id="sf_admin_container">
   <h1><?php echo __('Каталог', array(), 'messages') ?></h1>
@@ -38,17 +39,67 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('span.categories-tree-node-label').click(function(){
+    
+    $('div.categories-tree-node-label').live('click', function(){
       $('li.categories-tree-node.selected').removeClass('selected');
       $(this).parent().addClass('selected');
       var categoryId = $(this).parent().attr('id').substring(5);
-      $('#catalogue-items-list').load('/admin.php/ikCatalogueItemAdmin?category='+categoryId+' .sf_admin_list');
-    })
+      //$('#catalogue-items-list').load('/admin.php/ikCatalogueItemAdmin?category='+categoryId+' .sf_admin_list');
+      $('#catalogue-items-list').load('<?php echo url_for('@catalogue_item') ?>?page=1&category='+categoryId+' .sf_admin_list', function(){
+        $('.sf_admin_list tbody tr').draggable(itemDragOptions);
+      });
+      return false;
+    });
 
+    // Configure categories as drop targets for categories
+    $('.categories-tree-node > div').droppable({
+      accept: '.categories-tree-node',
+      drop: function(e, ui){
+        var target = $(this).parent();
+        var node = ui.draggable;
+        if (target.hasClass('categories-tree-branch')){
+          // this is branch - dropping results in adding as first branch child
+          // but with Shift key pressed it will add as next sibling
+          if (e.shiftKey){
+            target.after(node);
+            //TODO: handle situation when ul becomes empty, then make it regular node
+          } else {
+            target.children('ul').prepend(node);
+          }
+        } else {
+          // this is node - default drops as next sibling
+          // with Shift key - makes target a branch & adds as first child
+          if (e.shiftKey){
+            target.addClass('categories-tree-branch').append('<ul>')
+                  .children('div').prepend('<span class="categories-tree-expander">-</span>');
+            target.children('ul').append(node);
+          } else {
+            target.after(node);
+          }
+        }
+      },
+      hoverClass: 'accept',
+      over: function(e,ui){
+        //alert('You are over drop zone');
+      }
+    });
+
+    // Configure categories as drop targets for items
+    $('.categories-tree-node > div').droppable({
+      accept: '.sf_admin_list tbody tr',
+      drop: function(e, ui){
+        // stub
+        alert('You just have dropped an item to '+$(this).text());
+      },
+      hoverClass: 'accept'
+    });
+    
     $('.sf_admin_pagination a').live('click', (function(e){
       e.preventDefault();
       var pagerLink = $(this).attr('href')<?php echo $categoryId?"+'&category="+$categoryId+"'":'' ?>;  
-      $('#catalogue-items-list').load(pagerLink+' .sf_admin_list');
+      $('#catalogue-items-list').load(pagerLink+' .sf_admin_list', function(){
+        $('.sf_admin_list tbody tr').draggable(itemDragOptions);
+      });
     }));
   });
 </script>

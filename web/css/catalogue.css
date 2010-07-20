@@ -52,6 +52,6 @@
   cursor: pointer;
 }
 
-#sf_admin_container li.categories-tree-node.selected{
+#sf_admin_container li.categories-tree-node.selected > div{
   background: #e0e0e0;
 }
