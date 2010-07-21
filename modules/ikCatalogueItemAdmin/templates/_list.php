@@ -1,3 +1,4 @@
+<?php use_helper('I18N', 'Date') ?>
 <div class="sf_admin_list">
   <?php if (!$pager->getNbResults()): ?>
     <p><?php echo __('No result', array(), 'sf_admin') ?></p>

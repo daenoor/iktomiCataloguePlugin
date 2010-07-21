@@ -17,11 +17,12 @@
 
   <div id="sf_admin_content">
     <?php include_component('ikCatalogueCategoryAdmin', 'categoriesTree') ?>
+    <?php include_partial('ikCatalogueCategoryAdmin/categoryDetails', array('category'=>$category, 'categoryPath'=>$categoryPath)) ?>
     <form action="<?php echo url_for('catalogue_item_collection', array('action' => 'batch')) ?>" method="post">
     <div id="catalogue-items-list">
       <?php include_partial('ikCatalogueItemAdmin/list', array(
         'pager' => $pager, 'sort' => $sort,
-        'helper' => $helper, 'category'=>$categoryId
+        'helper' => $helper, 'category'=>$categoryId,
       )) ?>
     </div>
     <ul class="sf_admin_actions">
@@ -54,11 +55,10 @@
   };
 
   function moveCategory(node, target, moveType, callback){
-    /*$.post('<?php echo url_for('@catalogue_category') ?>/'+node+'/move', {
+    $.post('<?php echo url_for('@catalogue_category') ?>/'+node+'/move', {
       target: target,
       moveType: moveType
-    }, callback, 'json');*/
-    alert(target);
+    }, callback, 'json');
   }
 
   $(document).ready(function(){
@@ -81,9 +81,8 @@
       $('li.categories-tree-node.selected').removeClass('selected');
       $(this).parent().addClass('selected');
       var categoryId = $(this).parent().attr('id').substring(5);
-      //$('#catalogue-items-list').load('/admin.php/ikCatalogueItemAdmin?category='+categoryId+' .sf_admin_list');
-      $('#catalogue-items-list').load('<?php echo url_for('@catalogue_item') ?>?page=1&category='+categoryId+' .sf_admin_list', function(){
-        $('.sf_admin_list tbody tr').draggable(itemDragOptions);
+      $.get('<?php echo url_for('@catalogue_item') ?>', {page: 1, category: categoryId}, function(data){
+        $('.sf_admin_list').replaceWith(data.list);
       });
       return false;
     });
@@ -98,10 +97,14 @@
     // Ajax items pagination
     $('.sf_admin_pagination a').live('click', (function(e){
       e.preventDefault();
-      var pagerLink = $(this).attr('href')<?php echo $categoryId?"+'&category="+$categoryId+"'":'' ?>;
-      $('#catalogue-items-list').load(pagerLink+' .sf_admin_list', function(){
+      //var pagerLink = $(this).attr('href');
+      /*$('#catalogue-items-list').load(pagerLink+' .sf_admin_list', function(){
         $('.sf_admin_list tbody tr').draggable(itemDragOptions);
-      });
+      });*/
+      $.get($(this).attr('href'), function(data){
+        $('.sf_admin_list').replaceWith(data.list);
+        $('.sf_admin_list tbody tr').draggable(itemDragOptions);
+      })
     }));
 
     // set categories nodes as drop targets for categories
@@ -119,7 +122,7 @@
             }
           })
         } else {
-          moveCategory(nodeId.substring(5), targetId.substring(5), 'next', function(result){
+          moveCategory(nodeId.substring(5), targetId.substring(5), 'insert', function(result){
             if ('ok'===result.status){
               if (target.hasClass('categories-tree-branch')){
                 target.children('ul').prepend(node);

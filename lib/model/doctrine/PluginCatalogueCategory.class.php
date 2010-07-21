@@ -30,7 +30,8 @@ abstract class PluginCatalogueCategory extends BaseCatalogueCategory
     return $result;
   }
 
-  public function moveAfter($categoryId){
+  public function moveAfter($categoryId)
+  {
     $target = $this->getTable()->findOneById($categoryId);
 
     if ($result = $this->getNode()->moveAsNextSiblingOf($target))
@@ -40,5 +41,46 @@ abstract class PluginCatalogueCategory extends BaseCatalogueCategory
     }
 
     return $result;
+  }
+
+  public function getCategoryPath($fields = array( ))
+  {
+    if (empty($fields))
+    {
+      $fields = array( 'name', 'id' );
+    }
+
+    $path = array( );
+    $ancestors = $this->getNode()->getAncestors();
+
+    if ($ancestors)
+    {
+      foreach ($ancestors as $ancestor)
+      {
+        $pathItem = array( );
+        foreach ($fields as $field)
+        {
+          $pathItem[$field] = $ancestor[$field];
+        }
+        $path[] = $pathItem;
+      }
+    }
+
+    return $path;
+  }
+
+  public function getListWithDescendants()
+  {
+    $categoryIds = array( $this['id'] );
+    $descendants = $this->getNode()->getDescendants();
+    if ($descendants)
+    {
+      foreach ($descendants as $descendant)
+      {
+        $categoryIds[] = $descendant['id'];
+      }
+    }
+
+    return $categoryIds;
   }
 }

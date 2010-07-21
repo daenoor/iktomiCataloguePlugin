@@ -18,7 +18,9 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
   public function executeIndex(sfWebRequest $request)
   {
     $this->categoryId = $request->getParameter('category', '');
-    $this->categories = $this->categoryId?Doctrine::getTable('CatalogueCategory')->getListWithDescendants($this->categoryId):'';
+    $this->category = $this->categoryId?Doctrine::getTable('CatalogueCategory')->findOneById($this->categoryId):'';
+    $this->categoryPath = $this->categoryId?$this->category->getCategoryPath():'';
+    $this->categories = $this->categoryId?$this->category->getListWithDescendants():'';
 
     // sorting
     if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
@@ -34,12 +36,18 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
 
     $this->pager = $this->getPager();
     $this->sort = $this->getSort();
-/*    if ($request->isXmlHttpRequest()){
-      sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
-      return $this->renderPartial('ikCatalogueItemAdmin/list', array('pager'=>$this->pager, 'sort'=>$this->sort, 'helper'=>$this->helper));
+    if ($request->isXmlHttpRequest()){
+      $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+      $responseData = array();
+      $responseData['list'] = $this->getPartial('ikCatalogueItemAdmin/list', array(
+        'pager' => $this->pager, 'sort' => $this->sort,
+        'helper' => $this->helper, 'category'=>$this->categoryId,
+      ));
+
+      return $this->renderText(json_encode($responseData));
     } else {
       return sfView::SUCCESS;
-    }*/
+    }
   }
 
   protected function buildQuery()

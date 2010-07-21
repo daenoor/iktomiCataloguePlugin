@@ -55,3 +55,16 @@
 #sf_admin_container li.categories-tree-node.selected > div{
   background: #e0e0e0;
 }
+
+#category-details {
+  padding: 10px;
+  background: #ffffff;
+}
+
+.category-breadcrumb {
+  font: bold 18px Arial, Helvetica, sans-serif;
+}
+
+.category-title {
+  font: 18px Arial, Helvetica, sans-serif;
+}

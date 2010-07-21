@@ -22,7 +22,7 @@ abstract class BaseikCatalogueCategoryAdminActions extends autoIkCatalogueCatego
 
     $target = $request->getParameter('target', '');
     $moveType = $request->getParameter('moveType', '');
-    if (!$target || !$moveType || !is_numeric($target)){
+    if (!$moveType || !is_numeric($target)){
       return $this->renderText(json_encode(array('status'=>'err')));
     }
 
