@@ -107,6 +107,7 @@
     // set categories nodes as drop targets for categories
     $('.categories-tree-node > div').droppable({
       accept: '.categories-tree-node',
+      tolerance: 'pointer',
       drop: function(e, ui){
         var node = ui.draggable, nodeId = node.attr('id');
         var target = $(this).parent(), targetId = target.attr('id');
