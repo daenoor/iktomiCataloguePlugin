@@ -7,6 +7,15 @@ catalogue_category:
     column:               id
     with_wildcard_routes: true
 
+catalogue_category_move:
+  class: sfDoctrineRoute
+  url: /ikCatalogueCategoryAdmin/:id/move
+  options: { model: CatalogueCategory, type: object }
+  param: { module: ikCatalogueCategoryAdmin, action: move }
+  requirements:
+    id: \d+
+    sf_method: [post]
+
 catalogue_item:
   class: sfDoctrineRouteCollection
   options:
