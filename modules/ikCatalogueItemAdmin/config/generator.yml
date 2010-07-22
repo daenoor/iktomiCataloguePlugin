@@ -21,5 +21,7 @@ generator:
       filter:
         class: false
       form:    ~
-      edit:    ~
-      new:     ~
+      edit:
+        title: Редактирование элемента %%name%%
+      new:
+        title: Новый элемент

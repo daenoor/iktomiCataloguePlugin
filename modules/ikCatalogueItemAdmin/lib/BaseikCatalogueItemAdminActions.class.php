@@ -18,9 +18,9 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
   public function executeIndex(sfWebRequest $request)
   {
     $this->categoryId = $request->getParameter('category', '');
-    $this->category = $this->categoryId?Doctrine::getTable('CatalogueCategory')->findOneById($this->categoryId):'';
-    $this->categoryPath = $this->categoryId?$this->category->getCategoryPath():'';
-    $this->categories = $this->categoryId?$this->category->getListWithDescendants():'';
+    $this->category = $this->categoryId? Doctrine::getTable('CatalogueCategory')->findOneById($this->categoryId) : '';
+    $this->categoryPath = $this->categoryId? $this->category->getCategoryPath() : '';
+    $this->categories = $this->categoryId? $this->category->getListWithDescendants() : '';
 
     // sorting
     if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
@@ -36,17 +36,47 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
 
     $this->pager = $this->getPager();
     $this->sort = $this->getSort();
-    if ($request->isXmlHttpRequest()){
+    if ($request->isXmlHttpRequest())
+    {
       $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
       $responseData = array();
+      $responseData['category_details'] = $this->getPartial('ikCatalogueCategoryAdmin/categoryDetails', array(
+        'category' => $this->category, 'categoryPath' => $this->categoryPath
+      ));
       $responseData['list'] = $this->getPartial('ikCatalogueItemAdmin/list', array(
         'pager' => $this->pager, 'sort' => $this->sort,
-        'helper' => $this->helper, 'category'=>$this->categoryId,
+        'helper' => $this->helper, 'category' => $this->categoryId,
       ));
 
       return $this->renderText(json_encode($responseData));
-    } else {
+    } else
+    {
       return sfView::SUCCESS;
+    }
+  }
+
+  public function executeMove(sfWebRequest $request)
+  {
+    if (!$request->isXmlHttpRequest()){
+      throw new RuntimeException('Only Ajax requests allowed');
+    }
+
+    $item = $this->getRoute()->getObject();
+    $category = $request->getParameter('category', '');
+
+    $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+
+    if (!is_numeric($category)){
+      return $this->renderText(json_encode(array('status' => 'err')));
+    }
+    
+    if ($result = $item->moveTo($category))
+    {
+      return $this->renderText(json_encode(array('status' => 'ok')));
+    }
+    else
+    {
+      return $this->renderText(json_encode(array('status' => 'err')));
     }
   }
 

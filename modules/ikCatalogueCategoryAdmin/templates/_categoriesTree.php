@@ -22,4 +22,7 @@ function renderTree($tree)
       <?php renderTree($tree) ?>
     </ul>
   <?php endif ?>
+  <div id="categories-panel-new">
+    <?php echo link_to(__('New', array(), 'sf_admin'), '@catalogue_category_new') ?>
+  </div>
 </div>

@@ -25,6 +25,15 @@ catalogue_item:
     column:               id
     with_wildcard_routes: true
 
+catalogue_item_move:
+  class: sfDoctrineRoute
+  url: /ikCatalogueItemAdmin/:id/move
+  options: { model: CatalogueItem, type: object }
+  param: { module: ikCatalogueItemAdmin, action: move }
+  requirements:
+    id: \d+
+    sf_method: [post]
+
 catalogue_property:
   class: sfDoctrineRouteCollection
   options:

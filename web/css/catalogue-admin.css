@@ -1,3 +1,12 @@
+#sf_admin_container #sf_admin_content {
+  margin-left: 210px;
+  width: 700px;
+}
+
+#sf_admin_container .sf_admin_list table {
+  width: 700px;
+}
+
 #sf_admin_container ul li.sf_admin_action_edititemproperties a
 {
   background: url(../images/edit.png) no-repeat 0 0;
@@ -56,6 +65,12 @@
   background: #e0e0e0;
 }
 
+#categories-panel-new a {
+  background: url(../images/new.png) no-repeat 0px 0px;
+  padding-left: 20px;
+}
+
+/* Category details */
 #category-details {
   padding: 10px;
   background: #ffffff;
@@ -67,4 +82,13 @@
 
 .category-title {
   font: 18px Arial, Helvetica, sans-serif;
+}
+
+#category-details-actions {
+  float: right;
+  text-align: right;
+}
+
+.category-details-description {
+  padding-top: 5px;
 }

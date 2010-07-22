@@ -17,5 +17,7 @@ generator:
       list:    ~
       filter:  ~
       form:    ~
-      edit:    ~
-      new:     ~
+      edit:
+        title: Редактирование категории %%name%%
+      new:
+        title: Новая категория

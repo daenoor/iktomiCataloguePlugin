@@ -12,5 +12,19 @@
  */
 abstract class PluginCatalogueItem extends BaseCatalogueItem
 {
+  public function moveTo($categoryId){
+    $category = Doctrine::getTable('CatalogueCategory')->findOneById($categoryId);
+    if (!$category){
+      return false;
+    }
 
+    if ($categoryId == $this['category_id']){
+      return false;
+    }
+
+    $this->setCatalogueCategory($category);
+    $this->save();
+
+    return true;
+  }
 }

@@ -1,5 +1,5 @@
 <?php use_helper('I18N', 'Date') ?>
-<div class="sf_admin_list">
+<div class="sf_admin_list" id="list-category-<?php echo $category ?>">
   <?php if (!$pager->getNbResults()): ?>
     <p><?php echo __('No result', array(), 'sf_admin') ?></p>
   <?php else: ?>
@@ -27,7 +27,7 @@
       </tfoot>
       <tbody>
         <?php foreach ($pager->getResults() as $i => $catalogue_item): $odd = fmod(++$i, 2) ? 'odd' : 'even' ?>
-          <tr class="sf_admin_row <?php echo $odd ?>">
+          <tr class="sf_admin_row <?php echo $odd ?>" id="item-<?php echo $catalogue_item['id'] ?>">
             <?php include_partial('ikCatalogueItemAdmin/list_td_batch_actions', array('catalogue_item' => $catalogue_item, 'helper' => $helper)) ?>
             <?php include_partial('ikCatalogueItemAdmin/list_td_tabular', array('catalogue_item' => $catalogue_item)) ?>
             <?php include_partial('ikCatalogueItemAdmin/list_td_actions', array('catalogue_item' => $catalogue_item, 'helper' => $helper)) ?>
