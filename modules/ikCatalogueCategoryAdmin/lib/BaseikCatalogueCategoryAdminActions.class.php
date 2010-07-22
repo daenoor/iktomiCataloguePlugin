@@ -56,6 +56,6 @@ abstract class BaseikCatalogueCategoryAdminActions extends autoIkCatalogueCatego
       $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
     }
 
-    $this->redirect('@catalogue_item');
+    $this->redirect('@catalogue_item_admin');
   }
 }

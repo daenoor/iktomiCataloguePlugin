@@ -10,8 +10,4 @@
  */
 abstract class BaseikCatalogueItemAdminComponents extends sfComponents
 {
-  public function executeCategoriesTree(sfWebRequest $request)
-  {
-    $this->tree = Doctrine::getTable('CatalogueCategory')->getTreeHierarchy();
-  }
 }

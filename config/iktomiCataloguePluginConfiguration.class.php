@@ -19,7 +19,21 @@ class iktomiCataloguePluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
-    $this->enableAdditionalModules();
+    //$this->dispatcher->connect('routing.load_configuration', )
+    $this->enableAdditionalAdminModules();
+
+    //set up routes
+    if ($this->isModuleEnabled('ikCatalogueItemAdmin')){
+      $this->dispatcher->connect('routing.load_configuration', array('ikCatalogueRouting', 'addAdminBasicRoutes'));
+    }
+
+    if (sfConfig::get('app_catalogue_use_properties')){
+      $this->dispatcher->connect('routing.load_configuration', array('ikCatalogueRouting', 'addAdminPropertyRoutes'));
+    }
+
+    if ($this->isModuleEnabled('ikCatalogue')){
+      $this->dispatcher->connect('routing.load_configuration', array('ikCatalogueRouting', 'addFrontendRoutes'));
+    }
   }
 
   /**
@@ -27,7 +41,7 @@ class iktomiCataloguePluginConfiguration extends sfPluginConfiguration
    *
    * @return void
    */
-  protected function enableAdditionalModules()
+  protected function enableAdditionalAdminModules()
   {
     $this->enabledModules = sfConfig::get('sf_enabled_modules');
     // fix for cc (and may be some other console tasks)
@@ -36,10 +50,14 @@ class iktomiCataloguePluginConfiguration extends sfPluginConfiguration
     if ($this->isModuleEnabled('ikCatalogueItemAdmin'))
     {
       $this->enableModule('ikCatalogueCategoryAdmin');
-      $this->enableModule('ikCataloguePropertyAdmin');
-      $this->enableModule('ikCataloguePropertySetAdmin');
+
+      if (sfConfig::get('app_catalogue_use_properties'))
+      {
+        $this->enableModule('ikCataloguePropertyAdmin');
+        $this->enableModule('ikCataloguePropertySetAdmin');
+      }
+      sfConfig::set('sf_enabled_modules', $this->enabledModules);
     }
-    sfConfig::set('sf_enabled_modules', $this->enabledModules);
   }
 
   /**
