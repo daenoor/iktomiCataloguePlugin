@@ -1,2 +1,2 @@
 all:
-  enabled_modules: [ikCatalogueCategoryAdmin, ikCatalogueItemAdmin, ikCataloguePropertySetAdmin, ikCataloguePropertyAdmin]
+  enabled_modules: [ikCatalogueCategoryAdmin, ikCatalogueItemAdmin, ikCataloguePropertySetAdmin, ikCataloguePropertyAdmin, ikCatalogue]
