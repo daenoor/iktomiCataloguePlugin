@@ -29,12 +29,12 @@ abstract class PluginCatalogueItemForm extends BaseCatalogueItemForm
       'mime_types' => 'web_images',
     ));
 
-     $this->widgetSchema['category'] = new sfWidgetFormDoctrineChoice(array(
+     $this->widgetSchema['category_id'] = new sfWidgetFormDoctrineChoice(array(
       'model' => 'CatalogueCategory',
       'order_by' => array('root_id, lft', ''),
       'method' => 'getIndentedName'
     ));
-    $this->validatorSchema['category'] = new sfValidatorDoctrineChoice(array(
+    $this->validatorSchema['category_id'] = new sfValidatorDoctrineChoice(array(
       'required' => false,
       'model' => 'CatalogueCategory'
     ));

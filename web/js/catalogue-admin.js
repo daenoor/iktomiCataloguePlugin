@@ -42,22 +42,22 @@ $(document).ready(function(){
   }
 
   // adjusting category tree branches & adding expanders to them
-  $('li.categories-tree-node ul').each(function(){
+  $('.categories-tree-node ul').each(function(){
     $(this).parent().addClass('categories-tree-branch');
     // $(this).parent().addClass('collapsed');
     $(this).prev('div').prepend('<span class="categories-tree-expander">-</span>')
   });
 
   // click on branch expander expands/collapses it
-  $('span.categories-tree-expander').live('click', function(){
+  $('.categories-tree-expander').live('click', function(){
     $(this).parent().next('ul').slideToggle('fast').parent().toggleClass('collapsed');
     $(this).text(('+'==$(this).text())?'-':'+');
     return false;
   });
 
   // click on category label selects it & loads items for it
-  $('div.categories-tree-node-label').live('click', function(){
-    $('li.categories-tree-node.selected').removeClass('selected');
+  $('.categories-tree-node-label').live('click', function(){
+    $('.categories-tree-node.selected').removeClass('selected');
     $(this).parent().addClass('selected');
     var categoryId = $(this).parent().attr('id').substring(5);
     loadItemsList(catalogueItemAdmin, {page: 1, category: categoryId});

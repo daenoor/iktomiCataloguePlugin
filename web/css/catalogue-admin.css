@@ -7,16 +7,16 @@
   width: 700px;
 }
 
-#sf_admin_container ul li.sf_admin_action_edititemproperties a
+#sf_admin_container ul .sf_admin_action_edititemproperties a
 {
   background: url(../images/edit.png) no-repeat 0 0;
 }
 
-#sf_admin_container ul.sf_admin_td_actions {
+#sf_admin_container .sf_admin_td_actions {
   width: 186px;
 }
 
-#sf_admin_container ul.sf_admin_td_actions li a{
+#sf_admin_container .sf_admin_td_actions li a{
   padding-left: 14px;
 }
 
@@ -26,20 +26,20 @@
   width: 200px;
 }
 
-#sf_admin_container ul#categories-tree{
+#sf_admin_container #categories-tree{
   list-style: none;
   /*margin: 10px;*/
   padding: 0;
   background: white;
 }
 
-#sf_admin_container ul#categories-tree ul {
+#sf_admin_container #categories-tree ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-#sf_admin_container ul#categories-tree li {
+#sf_admin_container #categories-tree li {
   list-style: none;
   margin: 0;
   line-height: 20px;
@@ -48,20 +48,20 @@
   cursor: default;
 }
 
-#sf_admin_container ul#categories-tree ul li {
+#sf_admin_container #categories-tree ul li {
   padding-left: 12px;
 }
 
 /* Default branch state is collapsed? */
-#sf_admin_container li.categories-tree-branch.collapsed ul {
+#sf_admin_container .categories-tree-branch.collapsed ul {
   display: none;
 }
 
-#sf_admin_container span.categories-tree-expander {
+#sf_admin_container .categories-tree-expander {
   cursor: pointer;
 }
 
-#sf_admin_container li.categories-tree-node.selected > div{
+#sf_admin_container .categories-tree-node.selected > div{
   background: #e0e0e0;
 }
 

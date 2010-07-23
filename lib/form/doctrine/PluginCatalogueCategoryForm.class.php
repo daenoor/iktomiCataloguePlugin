@@ -33,9 +33,11 @@ abstract class PluginCatalogueCategoryForm extends BaseCatalogueCategoryForm
     ));
     $this->setDefault('parent_id', $this->object->getParentId());
     $this->widgetSchema->setLabel('parent_id', 'Child of');
-    //unset($this['root_id'], $this['lft'], $this['rgt'], $this['level'], $this['property_sets_list']);
-
+    
     unset($this['root_id'], $this['lft'], $this['rgt'], $this['level']);
+    if (!sfConfig::get('app_catalogue_use_properties')){
+      unset($this['property_sets_list']);
+    }
     $this->widgetSchema->moveField('slug', sfWidgetFormSchema::AFTER, 'name');
   }
 
