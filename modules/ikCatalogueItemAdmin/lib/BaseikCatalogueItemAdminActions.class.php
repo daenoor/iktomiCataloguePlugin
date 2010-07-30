@@ -19,7 +19,7 @@ abstract class BaseikCatalogueItemAdminActions extends autoIkCatalogueItemAdminA
   {
     $this->categoryId = $request->getParameter('category', '');
     $this->category = $this->categoryId? Doctrine::getTable('CatalogueCategory')->findOneById($this->categoryId) : '';
-    $this->categoryPath = $this->categoryId? $this->category->getCategoryPath() : '';
+    $this->categoryPath = $this->categoryId? $this->category->getAncestorFieldValues() : '';
     $this->categories = $this->categoryId? $this->category->getListWithDescendants() : '';
 
     // sorting

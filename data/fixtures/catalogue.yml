@@ -1,19 +1,16 @@
 CatalogueItem:
   CatalogueItem_1:
     name: 'Samsung LE-40 B530 P7W'
-    summary: 'Very good LCD TV'
     image: ''
     description: 'Very good LCD TV'
     CatalogueCategory: CatalogueCategory_10
   CatalogueItem_2:
     name: 'Samsung LE-41 B530 P7W'
-    summary: 'One more good tv set'
     image: ''
     description: 'One more good tv set'
     CatalogueCategory: CatalogueCategory_10
   CatalogueItem_3:
     name: 'Samsung LE-42 B530 P7W'
-    summary: 'So many good tvs'
     image: ''
     description: 'So many good tvs'
     CatalogueCategory: CatalogueCategory_10
@@ -26,7 +23,7 @@ CatalogueCategory:
     lft: '1'
     rgt: '14'
     level: '0'
-    slug: elektronika
+    slug: 'elektronika'
   CatalogueCategory_2:
     name: 'Бытовая техника'
     description: ''
@@ -35,7 +32,7 @@ CatalogueCategory:
     lft: '1'
     rgt: '8'
     level: '0'
-    slug: bytovaja-tehnika
+    slug: 'bytovaja-tehnika'
   CatalogueCategory_3:
     name: Телевизоры
     description: ''
@@ -44,7 +41,7 @@ CatalogueCategory:
     lft: '2'
     rgt: '9'
     level: '1'
-    slug: televizory
+    slug: 'televizory'
   CatalogueCategory_4:
     name: Видео
     description: ''
@@ -53,7 +50,7 @@ CatalogueCategory:
     lft: '10'
     rgt: '11'
     level: '1'
-    slug: video
+    slug: 'video'
   CatalogueCategory_5:
     name: Аудио
     description: ''
@@ -62,7 +59,7 @@ CatalogueCategory:
     lft: '12'
     rgt: '13'
     level: '1'
-    slug: audio
+    slug: 'audio'
   CatalogueCategory_6:
     name: 'Стиральные машины'
     description: ''
@@ -71,7 +68,7 @@ CatalogueCategory:
     lft: '2'
     rgt: '3'
     level: '1'
-    slug: stiraljnye-mashiny
+    slug: 'stiraljnye-mashiny'
   CatalogueCategory_7:
     name: Плиты
     description: ''
@@ -89,7 +86,7 @@ CatalogueCategory:
     lft: '6'
     rgt: '7'
     level: '1'
-    slug: holodiljniki
+    slug: 'holodiljniki'
   CatalogueCategory_9:
     name: Плазменные
     description: ''
@@ -98,7 +95,7 @@ CatalogueCategory:
     lft: '3'
     rgt: '4'
     level: '2'
-    slug: plazmennye
+    slug: 'plazmennye'
   CatalogueCategory_10:
     name: LCD
     description: ''
@@ -107,7 +104,7 @@ CatalogueCategory:
     lft: '5'
     rgt: '6'
     level: '2'
-    slug: lcd
+    slug: 'lcd'
   CatalogueCategory_11:
     name: Кинескопные
     description: ''
@@ -116,5 +113,5 @@ CatalogueCategory:
     lft: '7'
     rgt: '8'
     level: '2'
-    slug: kineskopnye
+    slug: 'kineskopnye'
     

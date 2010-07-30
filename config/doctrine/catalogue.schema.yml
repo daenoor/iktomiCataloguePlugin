@@ -33,7 +33,6 @@ CatalogueItem:
       path: thumb
   columns:
     name: string(255)
-    summary: string
     image: string(255)
     description: string
     category_id: integer

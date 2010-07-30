@@ -46,19 +46,20 @@ class PluginCatalogueCategoryTable extends Doctrine_Table
     }
   }
 
-  public function getListWithDescendants($categoryId)
+  /**
+   * Returns query for category selector in Catalogue item edit form
+   *
+   * @return Doctrine_Query
+   */
+  public function getItemEditCategoriesQuery()
   {
-    $categoryIds = array($categoryId);
-    $category = $this->findOneById($categoryId);
-    $descendants = $category->getNode()->getDescendants();
-    if ($descendants)
+    $q = $this->createQuery('c');
+    $q->orderBy('c.root_id ASC, c.lft ASC');
+    if (!sfConfig::get('app_catalogue_add_to_category_with_subcategories', false))
     {
-      foreach ($descendants as $descendant)
-      {
-        $categoryIds[] = $descendant['id'];
-      }
+      $q->addWhere('c.rgt = c.lft+1');
     }
 
-    return $categoryIds;
+    return $q;
   }
 }

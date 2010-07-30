@@ -12,11 +12,22 @@
  */
 abstract class PluginCatalogueCategory extends BaseCatalogueCategory
 {
+  /**
+   * Get category name with level indented by '-'
+   *
+   * @return string indented category name
+   */
   public function getIndentedName()
   {
     return str_repeat('-', $this->getLevel()) . ' ' . $this['name'];
   }
 
+  /**
+   * Inserts category as first child of other category
+   *
+   * @param int $categoryId New parent category id
+   * @return bool
+   */
   public function insertInto($categoryId)
   {
     $target = $this->getTable()->findOneById($categoryId);
@@ -30,6 +41,12 @@ abstract class PluginCatalogueCategory extends BaseCatalogueCategory
     return $result;
   }
 
+  /**
+   * Moves category next to other category
+   *
+   * @param int $categoryId Prev sibling category id
+   * @return bool
+   */
   public function moveAfter($categoryId)
   {
     $target = $this->getTable()->findOneById($categoryId);
@@ -43,21 +60,39 @@ abstract class PluginCatalogueCategory extends BaseCatalogueCategory
     return $result;
   }
 
-  public function getCategoryPath($fields = array( ))
+  /**
+   * Returns information from fields of all category ancestors
+   * @param array $fields Ancestors fields
+   * @return array Information about category ancestors
+   */
+  public function getAncestorFieldValues($fields = array())
   {
     if (empty($fields))
     {
-      $fields = array( 'name', 'id' );
+      $fields = array('name', 'id');
     }
 
-    $path = array( );
+    // making array from input params if they're not array
+    if (!is_array($fields))
+    {
+      if (func_num_args() > 1)
+      {
+        $fields = func_get_args();
+      }
+      else
+      {
+        $fields = array($fields);
+      }
+    }
+
+    $path = array();
     $ancestors = $this->getNode()->getAncestors();
 
     if ($ancestors)
     {
       foreach ($ancestors as $ancestor)
       {
-        $pathItem = array( );
+        $pathItem = array();
         foreach ($fields as $field)
         {
           $pathItem[$field] = $ancestor[$field];
@@ -69,9 +104,48 @@ abstract class PluginCatalogueCategory extends BaseCatalogueCategory
     return $path;
   }
 
+  /**
+   * Returns category name with path from tree root
+   *
+   * @param string $pathSeparator
+   * @return string Generated category name
+   */
+  public function getCategoryWithPathString($pathSeparator = ' / ')
+  {
+    $pathString = '';
+    $path = $this->getAncestorFieldValues('name');
+    if (!empty($path))
+    {
+      foreach ($path as $pathItem)
+      {
+        $pathString .= $pathItem['name'] . $pathSeparator;
+      }
+    }
+
+    return $pathString . $this['name'];
+  }
+
+  /**
+   * Returns category name, depending on value of
+   * app_catalogue_add_to_category_with_subcategories option
+   *
+   * @return string category name
+   */
+  public function getCategoryString()
+  {
+    return sfConfig::get('app_catalogue_add_to_category_with_subcategories', false)?
+          $this->getIndentedName() :
+          $this->getCategoryWithPathString(sfConfig::get('app_catalogue_category_path_separator', ' / '));
+  }
+
+  /**
+   * Get id of category & ids of all its descendants
+   *
+   * @return array Category id & all its descendants ids
+   */
   public function getListWithDescendants()
   {
-    $categoryIds = array( $this['id'] );
+    $categoryIds = array($this['id']);
     $descendants = $this->getNode()->getDescendants();
     if ($descendants)
     {

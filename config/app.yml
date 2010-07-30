@@ -3,3 +3,5 @@ all:
     item_image_max_width: 500
     item_image_max_height: 500
     use_properties: false
+    add_to_category_with_subcategories: false
+    category_path_separator: ' / '
